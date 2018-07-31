@@ -1,3 +1,6 @@
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -14,3 +17,5 @@ void printNodes(node *head);
 void deleteNodeKey(node *head, int k);
 void deleteNodes(node *head);
 node * searchKey(node *head, int k);
+
+#endif 

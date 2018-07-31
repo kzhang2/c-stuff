@@ -1,12 +1,15 @@
 #include "../linkedlist/linked-list.h"
+#include "../resize-list/resizelist.h"
 
 typedef struct {
   int v;
   int e;
-  node *root;
+  list *root;
 } graph;
 
 graph * makeGraph();
 void addVertex(graph *g, double d);
-void addEdge(graph *g, int a, int b);
+void addEdgeUndirected(graph *g, int a, int b);
+void addEdgeDirected(graph *g, int a, int b);
 void printGraph(graph *g);
+graph * testGraph();
