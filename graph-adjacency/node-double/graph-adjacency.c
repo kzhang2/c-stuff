@@ -7,38 +7,38 @@
   printGraph(test);
   printf("%d\n", test->v);
   printf("%d\n", test->e);
-}*/
-
+}
+*/
 
 graph * makeGraph() {
   graph *result = malloc(sizeof(graph));
   result->v = 0;
   result->e = 0;
-  result->root = makeList();
+  result->root = makeNodeDoubList();
   return result;
 }
 
 void addVertex(graph *g, double d) {
   list *root = g->root;
-  node * newNode = createList();
+  nodeDoub * newNode = createNodeDoubList();
   newNode->key = g->v;
   newNode->data = d;
-  newNode->adjacents = createList();
-  add(root, newNode);
+  newNode->adjacents = createNodeDoubList();
+  addNodeDoub(root, newNode);
   (g->v)++;
 }
 
 void addEdgeUndirected(graph *g, int a, int b) {
-  node *root = g->root->root;
-  node *v1, *v2;
+  nodeDoub *root = g->root->root;
+  nodeDoub *v1, *v2;
   if (a >= 0 && b >= 0 && a <= g->v && b <= g->v) {
     v1 = &root[a];
     v2 = &root[b];
-    node *v1Rt = v1->adjacents;
-    node *v2Rt = v2->adjacents;
-    if (searchKey(v1Rt, v2->key) == NULL && searchKey(v2Rt, v1->key) == NULL) {
-      node *v2New = appendNode(v1Rt, v2->data, v2->key);
-      node *v1New = appendNode(v2Rt, v1->data, v1->key);
+    nodeDoub *v1Rt = v1->adjacents;
+    nodeDoub *v2Rt = v2->adjacents;
+    if (searchNodeDoubKey(v1Rt, v2->key) == NULL && searchNodeDoubKey(v2Rt, v1->key) == NULL) {
+      nodeDoub *v2New = appendNodeDoub(v1Rt, v2->data, v2->key);
+      nodeDoub *v1New = appendNodeDoub(v2Rt, v1->data, v1->key);
       v1New->adjacents = v1->adjacents;
       v2New->adjacents = v2->adjacents;
     }
@@ -47,14 +47,14 @@ void addEdgeUndirected(graph *g, int a, int b) {
 }
 
 void addEdgeDirected(graph *g, int a, int b) {
-  node *root = g->root->root;
-  node *v1, *v2;
+  nodeDoub *root = g->root->root;
+  nodeDoub *v1, *v2;
   if (a >= 0 && b >= 0 && a <= g->v && b <= g->v) {
     v1 = &root[a];
     v2 = &root[b];
-    node *v1Rt = v1->adjacents;
-    if (searchKey(v1Rt, v2->key) == NULL) {
-      node *v2New = appendNode(v1Rt, v2->data, v2->key);
+    nodeDoub *v1Rt = v1->adjacents;
+    if (searchNodeDoubKey(v1Rt, v2->key) == NULL) {
+      nodeDoub *v2New = appendNodeDoub(v1Rt, v2->data, v2->key);
       v2New->adjacents = v2->adjacents;
     }
   }
@@ -62,11 +62,11 @@ void addEdgeDirected(graph *g, int a, int b) {
 }
 
 void printGraph(graph *g) {
-  node *l = g->root->root;
+  nodeDoub *l = g->root->root;
   for (int i = 0; i < g->v; i++) {
-    node *curr = &l[i];
+    nodeDoub *curr = &l[i];
     printf("(%d, %lf): ", curr->key, curr->data);
-    printNodes(curr->adjacents);
+    printNodeDoubs(curr->adjacents);
   }
 }
 

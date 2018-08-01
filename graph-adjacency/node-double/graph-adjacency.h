@@ -1,5 +1,7 @@
-#include "../linkedlist/linked-list.h"
-#include "../resize-list/resizelist.h"
+#ifndef GRAPH_ADJACENCY_H
+#define GRAPH_ADJACENCY_H
+#include "../../linkedlist/double/linked-list.h"
+#include "../../resize-list/node-double/resizelist.h"
 
 typedef struct {
   int v;
@@ -13,3 +15,4 @@ void addEdgeUndirected(graph *g, int a, int b);
 void addEdgeDirected(graph *g, int a, int b);
 void printGraph(graph *g);
 graph * testGraph();
+#endif
