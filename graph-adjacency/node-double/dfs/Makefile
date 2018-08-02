@@ -1,5 +1,11 @@
-dfs: linked-list.o resizelist.o graph-adjacency.o dfs-r.o
-	gcc dfs-r.o linked-list.o resizelist.o graph-adjacency.o -o dfs
+dfs-r: linked-list.o resizelist.o graph-adjacency.o dfs-r.o
+	gcc dfs-r.o linked-list.o resizelist.o graph-adjacency.o -o dfs-r
+
+dfs-i: linked-list.o resizelist.o graph-adjacency.o dfs-i.o
+	gcc dfs-i.o linked-list.o resizelist.o graph-adjacency.o -o dfs-i
+
+dfs-i.o: dfs-i.c dfs-i.h
+	gcc -c dfs-i.c -ggdb
 
 dfs-r.o: dfs-r.c dfs-r.h
 	gcc -c dfs-r.c -ggdb
@@ -14,4 +20,4 @@ graph-adjacency.o: ../graph-adjacency.c ../graph-adjacency.h
 	gcc -c ../graph-adjacency.c -ggdb
 
 clean:
-	del *o, dfs.exe
+	del *o, dfs-r.exe, dfs-i.exe

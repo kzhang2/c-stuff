@@ -25,17 +25,25 @@ nodeDoub * createNodeDoubList() {
   return result;
 }
 
+nodeDoub *createNodeDoub(double d, int k, nodeDoub *adj) {
+  nodeDoub *res = malloc(sizeof(nodeDoub));
+  res->data = d;
+  res->key = k;
+  res->adjacents = adj;
+  res->next = NULL;
+  return res;
+}
+
 nodeDoub * appendNodeDoub(nodeDoub *head, double d, int k) {
   nodeDoub *curr = head;
   while (curr->next != NULL) {
     curr = curr->next;
   }
-  nodeDoub *item = createNodeDoubList();
-  item->data = d;
-  item->key = k;
+  nodeDoub *item = createNodeDoub(d, k, NULL);
   curr->next = item;
   return item;
 }
+
 
 void deleteNodeDoubKey(nodeDoub *head, int k) {
   nodeDoub *curr = head;
@@ -48,6 +56,22 @@ void deleteNodeDoubKey(nodeDoub *head, int k) {
     curr->next = temp;
     free(rem);
   }
+}
+
+nodeDoub * popNodeDoub(nodeDoub *head) {
+  if (head->next != NULL) {
+    nodeDoub *first = head->next;
+    head->next = first->next;
+    return first;
+  }
+  return NULL;
+}
+
+nodeDoub * pushNodeDoub(nodeDoub *head, double d, int k, nodeDoub *adj) {
+  nodeDoub *newNode = createNodeDoub(d, k, adj);
+  newNode->next = head->next;
+  head->next = newNode;
+  return newNode;
 }
 
 void deleteNodeDoubs(nodeDoub *head) {

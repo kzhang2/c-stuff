@@ -15,7 +15,6 @@ int main() {
     printf("%d ", res1[i]);
   }
   printf("\n");
-
 }
 
 //0 for pre, 1 for post

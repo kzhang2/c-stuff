@@ -79,13 +79,11 @@ graph * testGraph() {
   addVertex(test, 4.0);
   addVertex(test, 5.0);
   addVertex(test, 6.0);
-  addEdgeDirected(test, 1, 0);
-  addEdgeDirected(test, 1, 2);
-  addEdgeDirected(test, 1, 3);
+  addEdgeDirected(test, 0, 1);
   addEdgeDirected(test, 0, 2);
-  addEdgeDirected(test, 3, 4);
+  addEdgeDirected(test, 0, 5);
   addEdgeDirected(test, 2, 4);
-  addEdgeDirected(test, 4, 5);
-  addEdgeDirected(test, 5, 6);
+  addEdgeDirected(test, 5, 3);
+  addEdgeDirected(test, 1, 6);
   return test;
 }
