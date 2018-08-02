@@ -3,3 +3,4 @@
 
 int * dfsIterative(graph *g, int s);
 int * dfsIterativePost(graph *g, int s);
+int neighborsVisited(nodeDoub * n, int *visited);

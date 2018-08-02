@@ -1,23 +1,23 @@
-dfs-r: linked-list.o resizelist.o graph-adjacency.o dfs-r.o
-	gcc dfs-r.o linked-list.o resizelist.o graph-adjacency.o -o dfs-r
+lib = ../../../libs/
+graphlibs = $(lib)linked-list.o $(lib)resizelist.o $(lib)graph-adjacency.o
 
-dfs-i: linked-list.o resizelist.o graph-adjacency.o dfs-i.o
-	gcc dfs-i.o linked-list.o resizelist.o graph-adjacency.o -o dfs-i
+dfs-r: graphlibs $(lib)dfs-r.o
+	gcc $(lib)dfs-r.o $(graphlibs) -o dfs-r
 
-dfs-i.o: dfs-i.c dfs-i.h
-	gcc -c dfs-i.c -ggdb
+dfs-i: graphlibs $(lib)dfs-i.o
+	gcc $(lib)dfs-i.o $(graphlibs) -o dfs-i
 
-dfs-r.o: dfs-r.c dfs-r.h
-	gcc -c dfs-r.c -ggdb
+$(lib)dfs-i.o: dfs-i.c dfs-i.h
+	gcc -c dfs-i.c -ggdb -o $(lib)dfs-i.o
 
-linked-list.o: ../../../linkedlist/double/linked-list.c ../../../linkedlist/double/linked-list.h
-	gcc -c ../../../linkedlist/double/linked-list.c -ggdb
+$(lib)dfs-r.o: dfs-r.c dfs-r.h
+	gcc -c dfs-r.c -ggdb -o $(lib)dfs-r.o
 
-resizelist.o: ../../../resize-list/node-double/resizelist.c ../../../resize-list/node-double/resizelist.h
-	gcc -c ../../../resize-list/node-double/resizelist.c -ggdb
-
-graph-adjacency.o: ../graph-adjacency.c ../graph-adjacency.h
-	gcc -c ../graph-adjacency.c -ggdb
+graphlibs:
+	cd .. && $(MAKE) graphlibs
 
 clean:
-	del *o, dfs-r.exe, dfs-i.exe
+	del dfs-r.exe, dfs-i.exe
+
+clibs:
+	cd $(lib) && del *.o

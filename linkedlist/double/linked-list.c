@@ -102,7 +102,7 @@ nodeDoub * searchNodeDoubKey(nodeDoub *head, int k) {
 void printNodeDoubs(nodeDoub *head) {
   nodeDoub *curr = head->next;
   while (curr != NULL) {
-    printf("%f ", curr->data);
+    printf("(%d, %.2f) ", curr->key, curr->data);
     curr = curr->next;
   }
   printf("\n");

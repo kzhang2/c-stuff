@@ -1,14 +1,25 @@
-graph: linked-list.o resizelist.o graph-adjacency.o
-	gcc -o graph graph-adjacency.o linked-list.o resizelist.o -ggdb
+lib = ../../libs/
+ll = ../../linkedlist/
+rs = ../../resize-list/
 
-linked-list.o: ../../linkedlist/double/linked-list.c ../../linkedlist/double/linked-list.h
-	gcc -c ../../linkedlist/double/linked-list.c -ggdb
+graphlibs = $(lib)linked-list.o $(lib)resizelist.o $(lib)graph-adjacency.o
 
-resizelist.o: ../../resize-list/node-double/resizelist.c ../../resize-list/node-double/resizelist.h
-	gcc -c ../../resize-list/node-double/resizelist.c -ggdb
+graph: graphlibs
+	gcc -o graph $(graphlibs) -ggdb
 
-graph-adjacency.o: graph-adjacency.c graph-adjacency.h
-	gcc -c graph-adjacency.c -ggdb
+graphlibs: $(graphlibs)
+
+$(lib)linked-list.o: $(ll)double/linked-list.c $(ll)double/linked-list.h
+	cd $(ll)double && $(MAKE) $(lib)linked-list.o
+
+$(lib)resizelist.o: $(rs)node-double/resizelist.c $(rs)node-double/resizelist.h
+	cd $(rs)node-double && $(MAKE) $(lib)resize-o
+
+$(lib)graph-adjacency.o: graph-adjacency.c graph-adjacency.h
+	gcc -c graph-adjacency.c -ggdb -o $(lib)graph-adjacency.o
 
 clean:
-	del *o, graph.exe
+	del graph.exe
+
+clibs:
+	cd $(lib) && del *.o

@@ -7,8 +7,8 @@
   printGraph(test);
   printf("%d\n", test->v);
   printf("%d\n", test->e);
-}
-*/
+}*/
+
 
 graph * makeGraph() {
   graph *result = malloc(sizeof(graph));
@@ -65,7 +65,7 @@ void printGraph(graph *g) {
   nodeDoub *l = g->root->root;
   for (int i = 0; i < g->v; i++) {
     nodeDoub *curr = &l[i];
-    printf("(%d, %lf): ", curr->key, curr->data);
+    printf("(%d, %.2lf): ", curr->key, curr->data);
     printNodeDoubs(curr->adjacents);
   }
 }
@@ -79,11 +79,27 @@ graph * testGraph() {
   addVertex(test, 4.0);
   addVertex(test, 5.0);
   addVertex(test, 6.0);
+  addVertex(test, 0.0);
+  addVertex(test, 1.0);
+  addVertex(test, 2.0);
+  addVertex(test, 3.0);
+  addVertex(test, 4.0);
   addEdgeDirected(test, 0, 1);
-  addEdgeDirected(test, 0, 2);
-  addEdgeDirected(test, 0, 5);
-  addEdgeDirected(test, 2, 4);
-  addEdgeDirected(test, 5, 3);
-  addEdgeDirected(test, 1, 6);
+  addEdgeDirected(test, 1, 2);
+  addEdgeDirected(test, 1, 3);
+  addEdgeDirected(test, 1, 4);
+  addEdgeDirected(test, 4, 1);
+  addEdgeDirected(test, 2, 5);
+  addEdgeDirected(test, 5, 2);
+  addEdgeDirected(test, 4, 5);
+  addEdgeDirected(test, 4, 6);
+  addEdgeDirected(test, 5, 7);
+  addEdgeDirected(test, 6, 7);
+  addEdgeDirected(test, 7, 10);
+  addEdgeDirected(test, 10, 11);
+  addEdgeDirected(test, 11, 9);
+  addEdgeDirected(test, 9, 8);
+  addEdgeDirected(test, 8, 6);
+  addEdgeDirected(test, 6, 9);
   return test;
 }
