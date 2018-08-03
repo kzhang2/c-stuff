@@ -103,3 +103,37 @@ graph * testGraph() {
   addEdgeDirected(test, 6, 9);
   return test;
 }
+
+graph * acyclicGraph() {
+  graph *test = makeGraph();
+  addVertex(test, 0.0);
+  addVertex(test, 1.0);
+  addVertex(test, 2.0);
+  addVertex(test, 3.0);
+  addVertex(test, 4.0);
+  addVertex(test, 5.0);
+  addEdgeDirected(test, 0, 1);
+  addEdgeDirected(test, 0, 2);
+  addEdgeDirected(test, 2, 3);
+  addEdgeDirected(test, 1, 4);
+  return test;
+}
+
+graph * undirectedSmallGraphAcyclic() {
+  graph *test = makeGraph();
+  addVertex(test, 0.0);
+  addVertex(test, 1.0);
+  addEdgeUndirected(test, 0, 1);
+  return test;
+}
+
+graph * undirectedSmallGraphCyclic() {
+  graph *test = makeGraph();
+  addVertex(test, 0.0);
+  addVertex(test, 1.0);
+  addVertex(test, 2.0);
+  addEdgeUndirected(test, 0, 1);
+  addEdgeUndirected(test, 0, 2);
+  addEdgeUndirected(test, 2, 1);
+  return test;
+}

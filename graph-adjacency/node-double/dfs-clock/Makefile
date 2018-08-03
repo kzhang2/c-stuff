@@ -1,17 +1,19 @@
-dfs-r-clock: linked-list.o resizelist.o graph-adjacency.o dfs-r-clock.o
-	gcc dfs-r-clock.o linked-list.o resizelist.o graph-adjacency.o -o dfs-r-clock
+name = dfs-r-clock
+out = clock
+lib = ../../../libs/
+graphlibs = $(lib)linked-list.o $(lib)resizelist.o $(lib)graph-adjacency.o
 
-dfs-r-clock.o: dfs-r-clock.c dfs-r-clock.h
-	gcc -c dfs-r-clock.c -ggdb
+cycle: graphlibs $(lib)$(name).o
+	gcc $(graphlibs) $(lib)$(name).o -o $(out)
 
-linked-list.o: ../../../linkedlist/double/linked-list.c ../../../linkedlist/double/linked-list.h
-	gcc -c ../../../linkedlist/double/linked-list.c -ggdb
+$(lib)$(name).o: $(name).c $(name).h
+	gcc -c $(name).c -ggdb -o $(lib)$(name).o
 
-resizelist.o: ../../../resize-list/node-double/resizelist.c ../../../resize-list/node-double/resizelist.h
-	gcc -c ../../../resize-list/node-double/resizelist.c -ggdb
-
-graph-adjacency.o: ../graph-adjacency.c ../graph-adjacency.h
-	gcc -c ../graph-adjacency.c -ggdb
+graphlibs:
+	cd .. && $(MAKE) graphlibs
 
 clean:
-	del *o, dfs-r-clock.exe
+	del $(out).exe
+
+clibs:
+	cd $(lib) && del *.o

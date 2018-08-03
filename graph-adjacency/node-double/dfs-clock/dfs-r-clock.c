@@ -7,7 +7,7 @@ int main() {
   clk *res2 = dfsRecursiveClock(test, 0);
 
   for (int i = 0; i < test->v; i++){
-    printf("(%d, %d)", res2[i].pre, res2[i].post);
+    printf("{%d: (%d, %d)}", i, res2[i].pre, res2[i].post);
   }
   printf("\n");
 }
@@ -31,7 +31,7 @@ void helperClock(nodeDoub *curr, clk *result, int *visited, int *c, int *t) {
   if (!visited[curr->key]) {
     visited[curr->key] = 1;
     int tmp = *c;
-    result[tmp].pre = *t;
+    result[curr->key].pre = *t;
     (*t)++;
     (*c)++;
     nodeDoub *neighbor = curr->adjacents->next;
@@ -39,7 +39,7 @@ void helperClock(nodeDoub *curr, clk *result, int *visited, int *c, int *t) {
       helperClock(neighbor, result, visited, c, t);
       neighbor = neighbor->next;
     }
-    result[tmp].post = *t;
+    result[curr->key].post = *t;
     (*t)++;
   }
 }

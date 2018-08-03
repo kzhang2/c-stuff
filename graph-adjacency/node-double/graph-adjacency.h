@@ -15,4 +15,7 @@ void addEdgeUndirected(graph *g, int a, int b);
 void addEdgeDirected(graph *g, int a, int b);
 void printGraph(graph *g);
 graph * testGraph();
+graph * acyclicGraph();
+graph * undirectedSmallGraphAcyclic();
+graph * undirectedSmallGraphCyclic();
 #endif
