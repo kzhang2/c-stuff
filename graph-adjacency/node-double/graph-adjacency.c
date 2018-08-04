@@ -7,7 +7,9 @@
   printGraph(test);
   printf("%d\n", test->v);
   printf("%d\n", test->e);
-}*/
+  removeEdge(test, 0, 1);
+  printGraph(test);
+} */
 
 
 graph * makeGraph() {
@@ -26,6 +28,11 @@ void addVertex(graph *g, double d) {
   newNode->adjacents = createNodeDoubList();
   addNodeDoub(root, newNode);
   (g->v)++;
+}
+
+void deleteVertex(graph *g, int k) {
+  nodeDoub *tmp = &((g->root->root)[k]);
+  
 }
 
 void addEdgeUndirected(graph *g, int a, int b) {
@@ -59,6 +66,24 @@ void addEdgeDirected(graph *g, int a, int b) {
     }
   }
   (g->e)++;
+}
+
+void removeEdge(graph *g, int a, int b) {
+  nodeDoub *root = g->root->root;
+  nodeDoub *v1, *v2;
+  if (a >= 0 && b >= 0 && a <= g->v && b <= g->v) {
+    v1 = &root[a];
+    v2 = &root[b];
+    nodeDoub *v1Rt = v1->adjacents;
+    nodeDoub *v2Rt = v2->adjacents;
+    if (searchNodeDoubKey(v1Rt, v2->key) != NULL) {
+      deleteNodeDoubKey(v1Rt, v2->key);
+    }
+    if (searchNodeDoubKey(v2Rt, v1->key) != NULL) {
+      deleteNodeDoubKey(v2Rt, v1->key);
+    }
+  }
+  (g->e)--;
 }
 
 void printGraph(graph *g) {

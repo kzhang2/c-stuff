@@ -1,6 +1,6 @@
 #include "dfs-i.h"
 
-int main() {
+/*int main() {
   graph *test = testGraph();
   printGraph(test);
 
@@ -18,10 +18,11 @@ int main() {
     printf("%d ", res1[i]);
   }
   printf("\n");
-}
+}*/
 
-int * dfsIterative(graph *g, int s) {
-  nodeDoub *root = g->root->root;
+//add wrapper method
+int * dfsIterative(graph *g, int s, int *res, int *vis, int *counting, int* comp) {
+  nodeDoub *root = &((g->root->root)[s]);
   nodeDoub **stk = calloc(g->v, sizeof(nodeDoub *));
   int count = 1;
   int seen = 0;
@@ -35,10 +36,15 @@ int * dfsIterative(graph *g, int s) {
   while (count > 0) {
     nodeDoub *curr = stk[count-1];
     count--;
-    if (!visited[curr->key]){
+    if (!vis[curr->key]){
       result[seen] = curr->key;
+      res[*counting] = curr->key;
+      comp[*counting] = s;
+      printf("%d\n", comp[*counting]);
       visited[curr->key] = 1;
+      vis[curr->key] = 1;
       seen++;
+      (*counting)++;
       nodeDoub *neighbor = curr->adjacents->next;
       while (neighbor != NULL) {
         stk[count] = neighbor;
@@ -61,11 +67,12 @@ int neighborsVisited(nodeDoub * n, int *visited) {
   return 1;
 }
 
-int * dfsIterativePost(graph *g, int s) {
-  nodeDoub *root = g->root->root;
+//add wrapper method
+int * dfsIterativePost(graph *g, int s, int *res, int *vis, int *counting) {
+  nodeDoub *root = &(g->root->root[s]);
 
   int *result = malloc(sizeof(int) * g->v);
-  int *visited = calloc(g->v, sizeof(int));
+
   int *counts = calloc(g->v, sizeof(int));
 
   nodeDoub **prevs = malloc(sizeof(nodeDoub *) * g->v);
@@ -86,18 +93,18 @@ int * dfsIterativePost(graph *g, int s) {
     nodeDoub *curr = stk[count-1];
     count--;
 
-    if (!visited[curr->key]) {
+    if (!vis[curr->key]) {
       prevs[prevCount] = curr;
       prevCount++;
 
-      visited[curr->key] = 1;
+      vis[curr->key] = 1;
       nodeDoub *neighbor = curr->adjacents->next;
 
       while (neighbor != NULL) {
         stk[count] = neighbor;
         count++;
 
-        if (!visited[neighbor->key]) {
+        if (!vis[neighbor->key]) {
           counts[curr->key]++;
         }
 
@@ -107,17 +114,24 @@ int * dfsIterativePost(graph *g, int s) {
       if (counts[curr->key] == 0) {
         nodeDoub *prev = prevs[prevCount-1];
 
-        while (prevCount > 1 && neighborsVisited(prev, visited)) {
+        while (prevCount > 1 && neighborsVisited(prev, vis)) {
           prevs[prevCount-1] = NULL;
           prevCount--;
+
           result[seen] = prev->key;
           seen++;
+          res[*counting] = prev->key;
+          (*counting)++;
+
           prev = prevs[prevCount-1];
 
         }
-        if(neighborsVisited(prev, visited)) {
+        if(neighborsVisited(prev, vis)) {
           result[seen] = prev->key;
           seen++;
+          res[*counting] = prev->key;
+
+          (*counting)++;
         }
 
       }

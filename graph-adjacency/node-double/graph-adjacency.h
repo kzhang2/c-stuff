@@ -18,4 +18,6 @@ graph * testGraph();
 graph * acyclicGraph();
 graph * undirectedSmallGraphAcyclic();
 graph * undirectedSmallGraphCyclic();
+void removeEdge(graph *g, int a, int b);
+void deleteVertex(graph *g, int k);
 #endif
